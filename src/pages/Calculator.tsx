@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { Calculator as CalcIcon, ArrowLeft, Download } from "lucide-react";
+import { Calculator as CalcIcon, ArrowLeft, Download, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { useSettings } from "@/contexts/SettingsContext";
 import { calculateMean, calculateMedian, calculateMode, calculateStandardDeviation, calculateCorrelation } from "@/lib/statistics";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, ScatterChart, Scatter } from "recharts";
 
@@ -35,6 +36,7 @@ const toolConfigs = {
 const Calculator = () => {
   const { toolId } = useParams();
   const config = toolConfigs[toolId as keyof typeof toolConfigs];
+  const { decimalPrecision } = useSettings();
   const [input, setInput] = useState("");
   const [secondInput, setSecondInput] = useState("");
   const [result, setResult] = useState<any>(null);
@@ -117,7 +119,7 @@ const Calculator = () => {
                 Mean = {result.data.reduce((a: number, b: number) => a + b, 0)} / {result.data.length}
               </p>
               <div className="bg-primary/10 p-4 rounded-lg mt-4">
-                <p className="text-lg font-bold text-primary">Mean = {result.mean.toFixed(2)}</p>
+                <p className="text-lg font-bold text-primary">Mean = {result.mean.toFixed(decimalPrecision)}</p>
               </div>
             </CardContent>
           </Card>
@@ -132,7 +134,7 @@ const Calculator = () => {
                 Sorted data: {[...result.data].sort((a: number, b: number) => a - b).join(", ")}
               </p>
               <div className="bg-secondary/10 p-4 rounded-lg mt-4">
-                <p className="text-lg font-bold text-secondary">Median = {result.median.toFixed(2)}</p>
+                <p className="text-lg font-bold text-secondary">Median = {result.median.toFixed(decimalPrecision)}</p>
               </div>
             </CardContent>
           </Card>
@@ -188,7 +190,7 @@ const Calculator = () => {
             <CardContent>
               <p className="text-sm font-semibold">Mean = Sum / Count</p>
               <div className="bg-primary/10 p-4 rounded-lg mt-4">
-                <p className="text-lg font-bold text-primary">Mean (μ) = {result.mean.toFixed(2)}</p>
+                <p className="text-lg font-bold text-primary">Mean (μ) = {result.mean.toFixed(decimalPrecision)}</p>
               </div>
             </CardContent>
           </Card>
@@ -203,7 +205,7 @@ const Calculator = () => {
                 For each value, subtract the mean, square the result, then average all squared differences.
               </p>
               <div className="bg-secondary/10 p-4 rounded-lg mt-4">
-                <p className="text-lg font-bold text-secondary">Variance (σ²) = {variance.toFixed(2)}</p>
+                <p className="text-lg font-bold text-secondary">Variance (σ²) = {variance.toFixed(decimalPrecision)}</p>
               </div>
             </CardContent>
           </Card>
@@ -214,14 +216,14 @@ const Calculator = () => {
             </CardHeader>
             <CardContent className="space-y-2">
               <p className="text-sm font-semibold">Standard Deviation = √Variance</p>
-              <p className="text-sm text-muted-foreground">σ = √{variance.toFixed(2)}</p>
+              <p className="text-sm text-muted-foreground">σ = √{variance.toFixed(decimalPrecision)}</p>
               <div className="bg-accent/10 p-4 rounded-lg mt-4">
                 <p className="text-lg font-bold text-accent">
-                  Standard Deviation (σ) = {result.standardDeviation.toFixed(2)}
+                  Standard Deviation (σ) = {result.standardDeviation.toFixed(decimalPrecision)}
                 </p>
               </div>
               <p className="text-sm text-muted-foreground mt-4">
-                <strong>Interpretation:</strong> The data typically varies by ±{result.standardDeviation.toFixed(2)} from the mean.
+                <strong>Interpretation:</strong> The data typically varies by ±{result.standardDeviation.toFixed(decimalPrecision)} from the mean.
                 {result.standardDeviation < result.mean * 0.3 && " This shows relatively low spread."}
                 {result.standardDeviation > result.mean * 0.5 && " This shows relatively high spread."}
               </p>
@@ -286,7 +288,7 @@ const Calculator = () => {
               </p>
               <div className="bg-primary/10 p-4 rounded-lg mt-4">
                 <p className="text-lg font-bold text-primary">
-                  Correlation (r) = {result.correlation.toFixed(4)}
+                  Correlation (r) = {result.correlation.toFixed(decimalPrecision)}
                 </p>
               </div>
             </CardContent>
@@ -357,7 +359,14 @@ const Calculator = () => {
               <h1 className="text-xl font-bold">StatSolver</h1>
             </div>
           </div>
-          <ThemeToggle />
+          <div className="flex items-center gap-2">
+            <Link to="/settings">
+              <Button variant="ghost" size="icon" className="rounded-full">
+                <Settings className="w-5 h-5" />
+              </Button>
+            </Link>
+            <ThemeToggle />
+          </div>
         </div>
       </header>
 

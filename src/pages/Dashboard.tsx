@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Calculator, TrendingUp, BarChart3, Activity, GitBranch, PieChart } from "lucide-react";
+import { Calculator, TrendingUp, BarChart3, Activity, GitBranch, PieChart, Settings } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -72,6 +72,11 @@ const Dashboard = () => {
             </Link>
             <Link to="/notes" className="text-sm font-medium hover:text-primary transition-colors">
               Learn
+            </Link>
+            <Link to="/settings">
+              <Button variant="ghost" size="icon" className="rounded-full">
+                <Settings className="w-5 h-5" />
+              </Button>
             </Link>
             <ThemeToggle />
           </nav>
