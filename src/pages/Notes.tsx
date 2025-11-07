@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowLeft, BookOpen, Calculator, Settings } from "lucide-react";
+import { ArrowLeft, BookOpen, Calculator, Settings, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -14,6 +14,7 @@ const notes = [
     example: "For data: 10, 20, 30, 40, 50\nMean = (10+20+30+40+50) / 5 = 150 / 5 = 30",
     interpretation: "The mean gives you a single value that represents the typical value in your dataset.",
     calculatorPath: "/calculator/central-tendency",
+    pdfPath: "/notes/mean.pdf",
     color: "primary",
   },
   {
@@ -24,6 +25,7 @@ const notes = [
     example: "For data: 10, 20, 30, 40, 50\nSorted: 10, 20, 30, 40, 50\nMedian = 30 (middle value)",
     interpretation: "The median divides your data into two equal halves - 50% of values are below it, 50% above.",
     calculatorPath: "/calculator/central-tendency",
+    pdfPath: "/notes/median.pdf",
     color: "secondary",
   },
   {
@@ -34,6 +36,7 @@ const notes = [
     example: "For data: 10, 20, 20, 30, 40\nMode = 20 (appears twice)",
     interpretation: "A dataset can have one mode, multiple modes, or no mode at all if all values are unique.",
     calculatorPath: "/calculator/central-tendency",
+    pdfPath: "/notes/mode.pdf",
     color: "accent",
   },
   {
@@ -44,6 +47,7 @@ const notes = [
     example: "For data: 10, 20, 30, 40, 50\nMean = 30\nVariance = [(10-30)² + (20-30)² + (30-30)² + (40-30)² + (50-30)²] / 5\nVariance = [400 + 100 + 0 + 100 + 400] / 5 = 200",
     interpretation: "Variance is always positive. A higher variance means data points are more spread out from the mean.",
     calculatorPath: "/calculator/standard-deviation",
+    pdfPath: "/notes/variance.pdf",
     color: "primary",
   },
   {
@@ -54,6 +58,7 @@ const notes = [
     example: "For data: 10, 20, 30, 40, 50\nMean = 30\nVariance = 200\nSD = √200 ≈ 14.14",
     interpretation: "About 68% of values typically fall within 1 standard deviation of the mean in a normal distribution.",
     calculatorPath: "/calculator/standard-deviation",
+    pdfPath: "/notes/standard-deviation.pdf",
     color: "secondary",
   },
   {
@@ -64,6 +69,7 @@ const notes = [
     example: "Dataset A: Mean = 50, SD = 10\nCV = (10/50) × 100 = 20%\n\nDataset B: Mean = 100, SD = 15\nCV = (15/100) × 100 = 15%\n\nDataset B is relatively less variable.",
     interpretation: "A lower CV means less variability relative to the mean. CV is dimensionless, making it perfect for comparing different datasets.",
     calculatorPath: "/calculator/coefficient-variation",
+    pdfPath: "/notes/coefficient-variation.pdf",
     color: "accent",
   },
   {
@@ -74,6 +80,7 @@ const notes = [
     example: "First moment (mean): Describes center\nSecond moment (variance): Describes spread\nThird moment: Related to skewness\nFourth moment: Related to kurtosis",
     interpretation: "Moments provide a complete mathematical description of a probability distribution's shape.",
     calculatorPath: "/calculator/moments",
+    pdfPath: "/notes/moments.pdf",
     color: "primary",
   },
   {
@@ -84,6 +91,7 @@ const notes = [
     example: "Skewness = 0: Symmetric (normal distribution)\nSkewness > 0: Right-skewed (tail on right)\nSkewness < 0: Left-skewed (tail on left)\n\nIncome data is typically right-skewed.",
     interpretation: "Positive skewness means most values are concentrated on the left with a long right tail. Negative skewness is the opposite.",
     calculatorPath: "/calculator/moments",
+    pdfPath: "/notes/skewness.pdf",
     color: "secondary",
   },
   {
@@ -94,6 +102,7 @@ const notes = [
     example: "Kurtosis = 3: Normal distribution (mesokurtic)\nKurtosis > 3: Heavy tails (leptokurtic)\nKurtosis < 3: Light tails (platykurtic)\n\nStock returns often show high kurtosis.",
     interpretation: "High kurtosis means more data in the tails and peak, indicating potential outliers and extreme values.",
     calculatorPath: "/calculator/moments",
+    pdfPath: "/notes/kurtosis.pdf",
     color: "accent",
   },
   {
@@ -104,6 +113,7 @@ const notes = [
     example: "Height vs Weight: r = 0.8 (strong positive)\nTemperature vs Ice Cream Sales: r = 0.7 (positive)\nPrice vs Demand: r = -0.6 (negative)\nShoe size vs IQ: r ≈ 0 (no correlation)",
     interpretation: "r = 1: Perfect positive\nr = 0: No linear relationship\nr = -1: Perfect negative\n|r| > 0.7 is typically considered strong.",
     calculatorPath: "/calculator/correlation",
+    pdfPath: "/notes/correlation.pdf",
     color: "primary",
   },
   {
@@ -114,6 +124,7 @@ const notes = [
     example: "Studying hours (x) vs Exam score (y)\nIf regression line: y = 5x + 40\n\nPrediction: 6 hours of study\ny = 5(6) + 40 = 70 points",
     interpretation: "The regression line minimizes the sum of squared distances from all points. The slope tells you how much y changes per unit change in x.",
     calculatorPath: "/calculator/regression",
+    pdfPath: "/notes/regression.pdf",
     color: "secondary",
   },
 ];
@@ -209,14 +220,22 @@ const Notes = () => {
                     <p className="text-sm whitespace-pre-wrap">{note.interpretation}</p>
                   </div>
 
-                  {/* Try Calculator */}
-                  <div className="pt-4 border-t">
-                    <Button asChild className="w-full">
-                      <Link to={note.calculatorPath}>
-                        <Calculator className="w-4 h-4 mr-2" />
-                        Try This in Calculator
-                      </Link>
-                    </Button>
+                  {/* Action Buttons */}
+                  <div className="pt-4 border-t space-y-3">
+                    <div className="grid grid-cols-2 gap-3">
+                      <Button asChild variant="outline">
+                        <a href={note.pdfPath} target="_blank" rel="noopener noreferrer">
+                          <FileText className="w-4 h-4 mr-2" />
+                          View Notes
+                        </a>
+                      </Button>
+                      <Button asChild>
+                        <Link to={note.calculatorPath}>
+                          <Calculator className="w-4 h-4 mr-2" />
+                          Try Calculator
+                        </Link>
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </DialogContent>
