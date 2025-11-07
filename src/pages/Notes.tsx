@@ -232,7 +232,7 @@ const Notes = () => {
                       <Button asChild>
                         <Link to={note.calculatorPath}>
                           <Calculator className="w-4 h-4 mr-2" />
-                          Try Calculator
+                          Try This in Calculator
                         </Link>
                       </Button>
                     </div>
