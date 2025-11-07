@@ -3,6 +3,7 @@ import { ArrowLeft, Calculator, TrendingUp, BarChart3, Activity, GitBranch, PieC
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { useState } from "react";
 
 const allTools = [
@@ -97,6 +98,7 @@ const Tools = () => {
               <h1 className="text-xl font-bold">All Tools</h1>
             </div>
           </div>
+          <ThemeToggle />
         </div>
       </header>
 

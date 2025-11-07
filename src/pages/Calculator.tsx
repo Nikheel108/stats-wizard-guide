@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { calculateMean, calculateMedian, calculateMode, calculateStandardDeviation, calculateCorrelation } from "@/lib/statistics";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, ScatterChart, Scatter } from "recharts";
 
@@ -356,6 +357,7 @@ const Calculator = () => {
               <h1 className="text-xl font-bold">StatSolver</h1>
             </div>
           </div>
+          <ThemeToggle />
         </div>
       </header>
 

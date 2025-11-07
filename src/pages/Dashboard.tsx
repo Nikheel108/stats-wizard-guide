@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Calculator, TrendingUp, BarChart3, Activity, GitBranch, PieChart } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const tools = [
   {
@@ -62,7 +63,7 @@ const Dashboard = () => {
               StatSolver
             </h1>
           </div>
-          <nav className="hidden md:flex gap-6">
+          <nav className="hidden md:flex gap-4 items-center">
             <Link to="/" className="text-sm font-medium hover:text-primary transition-colors">
               Home
             </Link>
@@ -72,6 +73,7 @@ const Dashboard = () => {
             <Link to="/notes" className="text-sm font-medium hover:text-primary transition-colors">
               Learn
             </Link>
+            <ThemeToggle />
           </nav>
         </div>
       </header>

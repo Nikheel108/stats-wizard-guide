@@ -3,6 +3,7 @@ import { ArrowLeft, BookOpen, Calculator } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const notes = [
   {
@@ -136,6 +137,7 @@ const Notes = () => {
               <h1 className="text-xl font-bold">Learn Statistics</h1>
             </div>
           </div>
+          <ThemeToggle />
         </div>
       </header>
 
