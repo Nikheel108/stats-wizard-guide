@@ -3,55 +3,45 @@ import { Calculator, TrendingUp, BarChart3, Activity, GitBranch, PieChart, Setti
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
-
-const tools = [
-  {
-    id: "central-tendency",
-    title: "Central Tendency",
-    description: "Calculate mean, median, and mode with detailed steps",
-    icon: Calculator,
-    path: "/calculator/central-tendency",
-  },
-  {
-    id: "standard-deviation",
-    title: "Standard Deviation",
-    description: "Measure data spread and variance with explanations",
-    icon: Activity,
-    path: "/calculator/standard-deviation",
-  },
-  {
-    id: "correlation",
-    title: "Correlation",
-    description: "Find relationship strength between two variables",
-    icon: TrendingUp,
-    path: "/calculator/correlation",
-  },
-  {
-    id: "coefficient-variation",
-    title: "Coefficient of Variation",
-    description: "Compare relative variability between datasets",
-    icon: BarChart3,
-    path: "/calculator/coefficient-variation",
-  },
-  {
-    id: "moments",
-    title: "Moments & Distribution",
-    description: "Calculate moments, skewness, and kurtosis",
-    icon: GitBranch,
-    path: "/calculator/moments",
-  },
-  {
-    id: "regression",
-    title: "Regression Analysis",
-    description: "Linear regression with prediction capabilities",
-    icon: PieChart,
-    path: "/calculator/regression",
-  },
-];
-
+const tools = [{
+  id: "central-tendency",
+  title: "Central Tendency",
+  description: "Calculate mean, median, and mode with detailed steps",
+  icon: Calculator,
+  path: "/calculator/central-tendency"
+}, {
+  id: "standard-deviation",
+  title: "Standard Deviation",
+  description: "Measure data spread and variance with explanations",
+  icon: Activity,
+  path: "/calculator/standard-deviation"
+}, {
+  id: "correlation",
+  title: "Correlation",
+  description: "Find relationship strength between two variables",
+  icon: TrendingUp,
+  path: "/calculator/correlation"
+}, {
+  id: "coefficient-variation",
+  title: "Coefficient of Variation",
+  description: "Compare relative variability between datasets",
+  icon: BarChart3,
+  path: "/calculator/coefficient-variation"
+}, {
+  id: "moments",
+  title: "Moments & Distribution",
+  description: "Calculate moments, skewness, and kurtosis",
+  icon: GitBranch,
+  path: "/calculator/moments"
+}, {
+  id: "regression",
+  title: "Regression Analysis",
+  description: "Linear regression with prediction capabilities",
+  icon: PieChart,
+  path: "/calculator/regression"
+}];
 const Dashboard = () => {
-  return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-muted/30">
+  return <div className="min-h-screen bg-gradient-to-b from-background to-muted/30">
       {/* Header */}
       <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-10">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
@@ -106,13 +96,9 @@ const Dashboard = () => {
       <section className="container mx-auto px-4 pb-16">
         <h3 className="text-2xl font-bold mb-8 text-center">Choose Your Calculator</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {tools.map((tool) => {
-            const Icon = tool.icon;
-            return (
-              <Card
-                key={tool.id}
-                className="group hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/50"
-              >
+          {tools.map(tool => {
+          const Icon = tool.icon;
+          return <Card key={tool.id} className="group hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/50">
                 <CardHeader>
                   <div className="w-12 h-12 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                     <Icon className="w-6 h-6 text-primary" />
@@ -125,20 +111,17 @@ const Dashboard = () => {
                     <Link to={tool.path}>Open Calculator</Link>
                   </Button>
                 </CardContent>
-              </Card>
-            );
-          })}
+              </Card>;
+        })}
         </div>
       </section>
 
       {/* Footer */}
       <footer className="border-t bg-card/50 backdrop-blur-sm mt-16">
         <div className="container mx-auto px-4 py-8 text-center text-sm text-muted-foreground">
-          <p>© 2024 StatSolver. Made for students who love learning statistics.</p>
+          <p>© 2025 StatSolver. Made for students who love learning statistics.</p>
         </div>
       </footer>
-    </div>
-  );
+    </div>;
 };
-
 export default Dashboard;
