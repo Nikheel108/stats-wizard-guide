@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, BookOpen, Calculator, Settings, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -130,6 +131,14 @@ const notes = [
 ];
 
 const Notes = () => {
+  const [pdfDialogOpen, setPdfDialogOpen] = useState(false);
+  const [selectedPdf, setSelectedPdf] = useState("");
+
+  const handleViewPdf = (pdfPath: string) => {
+    setSelectedPdf(pdfPath);
+    setPdfDialogOpen(true);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted/30">
       {/* Header */}
@@ -223,11 +232,12 @@ const Notes = () => {
                   {/* Action Buttons */}
                   <div className="pt-4 border-t space-y-3">
                     <div className="grid grid-cols-2 gap-3">
-                      <Button asChild variant="outline">
-                        <a href={note.pdfPath} target="_blank" rel="noopener noreferrer">
-                          <FileText className="w-4 h-4 mr-2" />
-                          View Notes
-                        </a>
+                      <Button 
+                        variant="outline"
+                        onClick={() => handleViewPdf(note.pdfPath)}
+                      >
+                        <FileText className="w-4 h-4 mr-2" />
+                        View Notes
                       </Button>
                       <Button asChild>
                         <Link to={note.calculatorPath}>
@@ -263,6 +273,25 @@ const Notes = () => {
           </CardContent>
         </Card>
       </div>
+
+      {/* PDF Viewer Dialog */}
+      <Dialog open={pdfDialogOpen} onOpenChange={setPdfDialogOpen}>
+        <DialogContent className="max-w-4xl max-h-[90vh] p-0">
+          <DialogHeader className="p-6 pb-2">
+            <DialogTitle>View Notes</DialogTitle>
+            <DialogDescription>
+              Study the detailed notes and formulas
+            </DialogDescription>
+          </DialogHeader>
+          <div className="h-[70vh] w-full px-6 pb-6">
+            <iframe
+              src={selectedPdf}
+              className="w-full h-full border rounded-lg"
+              title="PDF Viewer"
+            />
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
